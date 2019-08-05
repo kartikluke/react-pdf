@@ -66,6 +66,7 @@ describe('Image', () => {
   test('Should fetch remote image using GET method by default', async () => {
     fetch.once(localJPGImage);
 
+
     const image = new Image(dummyRoot, { src: jpgImageUrl });
 
     await image.fetch();
@@ -123,6 +124,9 @@ describe('Image', () => {
     await image.fetch();
     await image.render();
 
+    console.log(image.image);
+    console.log(image.image.data);
+
     expect(image.image.data).toBeTruthy();
     expect(dummyRoot.instance.image.mock.calls).toHaveLength(1);
     expect(dummyRoot.instance.image.mock.calls[0][0]).toBe(image.image.data);
@@ -135,6 +139,9 @@ describe('Image', () => {
 
     await image.fetch();
     await image.render();
+
+    console.log(image.image);
+    console.log(image.image.data);
 
     expect(image.image.data).toBeTruthy();
     expect(dummyRoot.instance.image.mock.calls).toHaveLength(1);

@@ -3320,6 +3320,17 @@ PNG.isValid = function (data) {
   }
 };
 
+PNG.load = function (data) {
+  try {
+    var decoded_data = PNG.decode(data);
+    decoded_data.pixel_array = decoded_data.data;
+    decoded_data.data = data;
+    return decoded_data;
+  } catch (e) {
+    return false;
+  }
+};
+
 // Extracted from https://github.com/devongovett/pdfkit/blob/master/lib/image/jpeg.coffee
 var MARKERS = [0xffc0, 0xffc1, 0xffc2, 0xffc3, 0xffc5, 0xffc6, 0xffc7, 0xffc8, 0xffc9, 0xffca, 0xffcb, 0xffcc, 0xffcd, 0xffce, 0xffcf];
 
@@ -3549,7 +3560,7 @@ function getImage(body, extension) {
       return new JPEG(body);
 
     case 'png':
-      return PNG.decode(body);
+      return PNG.load(body);
 
     default:
       return null;
